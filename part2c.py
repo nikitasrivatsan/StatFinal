@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Usage: ./part2b.py projectData1.txt
+# Usage: ./part2c.py projectData1.txt
 
 from random import randint
 import sys
