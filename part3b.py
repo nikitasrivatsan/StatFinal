@@ -72,7 +72,7 @@ def genData():
     for i in range(0,150):
         data[0].append(random.gamma(2,2))
     for i in range(0,100):
-        data[1].append(random.normal(1,2))
+        data[1].append(random.normal(1,0.25))
     return data
 
 if __name__ == "__main__":
