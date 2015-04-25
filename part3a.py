@@ -30,7 +30,7 @@ def main():
 
         # compute bootstrap medians and T
         m1_n = sorted([data[0][x] for x in indeces1])[len(data[0]) / 2]
-        m2_n = sorted([data[1][x] for x in indeces1])[len(data[1]) / 2]
+        m2_n = sorted([data[1][x] for x in indeces2])[len(data[1]) / 2]
         T[n] = abs(m1_n - m2_n - (m1 - m2))
 
     # calculate percentile

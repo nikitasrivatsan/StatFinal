@@ -4,6 +4,7 @@ from random import randint
 import sys
 import scipy
 from scipy import stats
+from numpy import random
 
 NUM_SAMPLES = 10000
 
@@ -28,7 +29,7 @@ def main():
 
         # compute bootstrap medians and T
         m1_n = sorted([data[0][x] for x in indeces1])[len(data[0]) / 2]
-        m2_n = sorted([data[1][x] for x in indeces1])[len(data[1]) / 2]
+        m2_n = sorted([data[1][x] for x in indeces2])[len(data[1]) / 2]
         T[n] = abs(m1_n - m2_n - (m1 - m2))
 
     # calculate percentile
@@ -40,17 +41,38 @@ def main():
             break
     p_boot = 1 - (float(numLesser) / len(T))
 
+    # compute T~ and p_sampling
+    T_tilda = []
+    for i in range(0, NUM_SAMPLES):
+        datai = genData()
+        datai[0].sort()
+        datai[1].sort()
+        m1i = data[0][len(data[0]) / 2]
+        m2i = data[1][len(data[1]) / 2]
+        T_tilda.append(abs(m1i - m2i - (m1 + m2)))
+
+    # calculate percentile
+    numLesser = 0
+    for t in sorted(T_tilda):
+        if t <= T_data:
+            numLesser += 1
+        else:
+            break
+    p_sampling = 1 - (float(numLesser) / len(T_tilda))
+
     # print data
     print "m1: " + str(m1)
     print "m2: " + str(m2)
     print "T_data: " + str(T_data)
-    print "p: " + str(p)
+    print "p_boot:     " + str(p_boot)
+    print "P_sampling: " + str(p_sampling)
 
 def genData():
     data = [[],[]]
-    for line in open(filename):
-        (obs, population) = line.split()
-        data[int(population) - 1].append(float(obs))
+    for i in range(0,150):
+        data[0].append(random.gamma(2,2))
+    for i in range(0,100):
+        data[1].append(random.normal(1,2))
     return data
 
 if __name__ == "__main__":
