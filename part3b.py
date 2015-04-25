@@ -47,9 +47,9 @@ def main():
         datai = genData()
         datai[0].sort()
         datai[1].sort()
-        m1i = data[0][len(data[0]) / 2]
-        m2i = data[1][len(data[1]) / 2]
-        T_tilda.append(abs(m1i - m2i - (m1 + m2)))
+        m1i = datai[0][len(datai[0]) / 2]
+        m2i = datai[1][len(datai[1]) / 2]
+        T_tilda.append(abs(m1i - m2i - (m1 - m2)))
 
     # calculate percentile
     numLesser = 0
@@ -70,7 +70,7 @@ def main():
 def genData():
     data = [[],[]]
     for i in range(0,150):
-        data[0].append(random.gamma(2,2))
+        data[0].append(random.gamma(2,0.5))
     for i in range(0,100):
         data[1].append(random.normal(1,0.25))
     return data
